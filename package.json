@@ -2,11 +2,11 @@
   "name": "expressserveryt",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/index.js",
+  "main": "./index.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc & node .",
-    "dev": "tsc -w & nodemon ."
+    "start": "node .",
+    "dev": "nodemon ."
   },
   "keywords": [],
   "author": "",

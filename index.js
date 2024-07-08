@@ -1,10 +1,9 @@
-import express from "express";
+const express = require("express");
 
-import BodyParser from "body-parser";
+const BodyParser = require("body-parser");
 
-import * as FirebaseService from "./FirebaseService";
-import Expo from "expo-server-sdk";
-import { CronJob } from "cron";
+const FirebaseService = require("./FirebaseService");
+const {Expo} = require("expo-server-sdk");
 
 const app = express();
 const port = 8000;
@@ -16,28 +15,6 @@ const cors = require('cors');
 
 const jsonParser = BodyParser.json();
 const httpParser = BodyParser.urlencoded({ extended: false });
-
-// new CronJob(
-//   "*/60 * * * * *",
-//   async function () {
-//     const userId = "0000001";
-//     const { token } = await FirebaseService.getToken("0000001");
-//     const samples = await FirebaseService.getSamples(userId);
-//     const mostRecentSample = samples.previousMoistureLevels.pop();
-//     if (mostRecentSample > 570) {
-//       expo.sendPushNotificationsAsync([
-//         {
-//           to: token,
-//           title: "Soil Water Level too Low!",
-//           body: "Water Your Plant",
-//         },
-//       ]);
-//     }
-//   },
-//   null,
-//   true,
-//   "America/New_York"
-// );
 
 app.use(cors({
   origin: 'http://localhost:3000', // Replace with allowed origin(s)
@@ -56,7 +33,7 @@ app.post("/SendNotificationOfNewQuote", jsonParser, async (req, res) => {
   const body = String(req.body.body);
   const users = await FirebaseService.getAllUsers()
 
-  let notifications: { to: string; title: string; body: string; }[] = [];
+  let notifications = [];
 
   users.forEach(item => {
     notifications.push({
