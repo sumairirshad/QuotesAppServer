@@ -5,9 +5,11 @@ const BodyParser = require("body-parser");
 const FirebaseService = require("./FirebaseService");
 const {Expo} = require("expo-server-sdk");
 
+require('dotenv').config()
+
 const app = express();
-const port = 8000;
-const address = '127.0.0.1';
+const port = process.env.PORT;
+const address = process.env.ADDRESS;
 
 const expo = new Expo();
 const cors = require('cors');
@@ -61,4 +63,4 @@ app.get("/analytics", httpParser, async (req, res) => {
   res.status(200).send(samples);
 });
 
-app.listen(port, address, () => console.log(`Running on Port ${port}`));
+app.listen(port, address, () => console.log(`Running on Port ${port} and Address ${address}`));
